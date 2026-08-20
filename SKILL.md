@@ -12,14 +12,17 @@ Graph, and Macro Graph images.
 
 1. Confirm that `ue-graph-capture` is on PATH and verify the installed version.
    Projects depending on the current workflow require `0.1.0`.
-2. Run `ue-graph-capture doctor --project <project.uproject>` before capture.
+2. If the project is authoritative source material, copy or extract it into a
+   temporary workspace before running commands that modify the project.
 3. Run `ue-graph-capture setup --project <project.uproject>` once for the
-   project copy. `setup` changes the project and installs the capture plugins.
-4. Use `ue-graph-capture list-graphs --project <project.uproject> --asset
+   temporary project copy. `setup` changes the project and installs the capture
+   plugins.
+4. Run `ue-graph-capture doctor --project <project.uproject>` after setup.
+5. Use `ue-graph-capture list-graphs --project <project.uproject> --asset
 /Game/...` when the exact graph name is unknown.
-5. Run `ue-graph-capture capture --project <project.uproject> --asset
+6. Run `ue-graph-capture capture --project <project.uproject> --asset
 /Game/... --graph <exact graph name> --output <output.png>`.
-6. Validate that the output is a readable PNG and record the tool version and
+7. Validate that the output is a readable PNG and record the verified tool version and
    capture inputs when producing a manifest.
 
 ## Safety and boundaries
@@ -36,8 +39,5 @@ Graph, and Macro Graph images.
 - `Timeline`, Widget Designer, Anim Blueprint, Material, Niagara, and other
   unsupported surfaces may use an explicitly bounded legacy fallback. Keep
   that fallback separate from supported graph capture.
-- Do not recreate direct GraphPrinter automation, editor UI automation,
-  Win32 window capture, or custom WebSocket plumbing for a graph type supported
-  by this CLI.
 - Prefer a capture flow that needs no human interaction; fail with diagnostics
   when the project, asset, graph, editor, or PNG is invalid.
