@@ -10,20 +10,33 @@ Graph, and Macro Graph images.
 
 ## Workflow
 
-1. Confirm that `ue-graph-capture` is on PATH and verify the installed version.
-   Projects depending on the current workflow require `0.1.0`.
-2. If the project is authoritative source material, copy or extract it into a
+Use this runner for every `ue-graph-capture` command:
+
+```text
+uvx --from "ue-graph-capture==0.1.0" ue-graph-capture \
+  <command> ...
+```
+
+1. Confirm that `uv` and `uvx` are available. The capture package is not a
+   persistent PATH or pipx dependency.
+2. Run the runner with `--version` and verify the actual version is exactly
+   `ue-graph-capture 0.1.0`.
+3. If the project is authoritative source material, copy or extract it into a
    temporary workspace before running commands that modify the project.
-3. Run `ue-graph-capture setup --project <project.uproject>` once for the
+4. Run `uvx --from "ue-graph-capture==0.1.0" ue-graph-capture setup
+   --project <project.uproject>` once for the
    temporary project copy. `setup` changes the project and installs the capture
    plugins.
-4. Run `ue-graph-capture doctor --project <project.uproject>` after setup.
-5. Use `ue-graph-capture list-graphs --project <project.uproject> --asset
-/Game/...` when the exact graph name is unknown.
-6. Run `ue-graph-capture capture --project <project.uproject> --asset
-/Game/... --graph <exact graph name> --output <output.png>`.
-7. Validate that the output is a readable PNG and record the verified tool version and
-   capture inputs when producing a manifest.
+5. Run `uvx --from "ue-graph-capture==0.1.0" ue-graph-capture doctor
+   --project <project.uproject>` after setup.
+6. Use `uvx --from "ue-graph-capture==0.1.0" ue-graph-capture \
+   list-graphs --project <project.uproject> --asset /Game/...` when the exact
+   graph name is unknown.
+7. Run `uvx --from "ue-graph-capture==0.1.0" ue-graph-capture \
+   capture --project <project.uproject> --asset /Game/... --graph <exact graph
+   name> --output <output.png>`.
+8. Validate that the output is a readable PNG and record the verified tool version
+   and capture inputs when producing a manifest.
 
 ## Safety and boundaries
 
